@@ -7,7 +7,7 @@
             TextInput
             DetectIntentRequest]))
 
-(defn intent-request [nlu-agent utterance]
+(defn intent-request [{nlu-agent :nlu-agent utterance :utterance}]
   (let [id           (.toString (java.util.UUID/randomUUID))
         session-name (. SessionName (of nlu-agent id))
         textIn       (TextInput/newBuilder)
@@ -17,6 +17,7 @@
         request      (.build (.setQueryInput (.setSession req (.toString session-name)) queryIn))]
     request))
 
-(defn send-intent-request [intent-req]
+(defn send-intent-request [{nlu-agent :nlu-agent utterance :utterance}]
   (let [session  (SessionsClient/create)
-        response (.detectIntent session intent-req)]))
+        response (.detectIntent session (intent-request {:nlu-agent nlu-agent :utterance utterance}))]
+    response))

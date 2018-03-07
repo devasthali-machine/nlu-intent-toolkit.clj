@@ -8,6 +8,7 @@
             TextInput
             DetectIntentRequest]))
 
-(let [req  (intent-request "nlu-agent" "where is Porcupine Tree playing right now??")
+(let [req  (intent-request {:nlu-agent "nlu-agent" :utterance "where is Porcupine Tree playing right now??"})
       resp (send-intent-request req)]
   resp)
+
