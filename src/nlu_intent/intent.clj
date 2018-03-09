@@ -41,3 +41,13 @@
                        (SessionsClient/create (get-cloud-creds {:creds-file creds-file})))
         response     (.detectIntent session (intent-request {:nlu-agent nlu-agent :utterance utterance}))]
     response))
+
+(defn heartbeat [{nlu-agent :nlu-agent utterance :utterance creds-file :creds-file}]
+  (try
+    (send-intent-request
+     {:nlu-agent  nlu-agent
+      :utterance  utterance
+      :creds-file creds-file})
+    "success"
+    (catch Throwable e
+      (.getMessage e))))
