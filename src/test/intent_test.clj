@@ -1,5 +1,5 @@
 (ns nlu-intent.intent-test
-  (:use nlu-intent.intent :as intent)
+  (:use nlu-intent.intent)
 
   (:import [com.google.cloud.dialogflow.v2beta1
             SessionName
@@ -8,7 +8,7 @@
             TextInput
             DetectIntentRequest]))
 
-(let [req  (intent-request {:nlu-agent "nlu-agent" :utterance "where is Porcupine Tree playing right now??"})
-      resp (send-intent-request req)]
-  resp)
-
+(send-intent-request
+ {:nlu-agent  "nlu-agent"
+  :utterance  "where is Porcupine Tree playing right now?"
+  :creds-file "src/nlu_intent/creds.json"})
